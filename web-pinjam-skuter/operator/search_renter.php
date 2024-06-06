@@ -5,7 +5,7 @@ $search_results = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
     $query = $_GET['query'];
-    $sql = "SELECT tp.*, tb.tanggal_pengembalian 
+    $sql = "SELECT tp.*, tb.tanggal_pengembalian, tb.biaya_tambahan
             FROM transaksipenyewaan tp 
             LEFT JOIN transaksipengembalian tb ON tp.id_transaksi = tb.id_transaksi 
             WHERE tp.no_ktp LIKE ? OR tp.nama_penyewa LIKE ?";
@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Pengembalian</th>
                             <th>Tarif</th>
+                            <th>Biaya Tambahan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query'])) {
                                 <td><?php echo htmlspecialchars($renter['tanggal_mulai']); ?></td>
                                 <td><?php echo htmlspecialchars($renter['tanggal_pengembalian'] ? $renter['tanggal_pengembalian'] : 'Belum Dikembalikan'); ?></td>
                                 <td><?php echo htmlspecialchars($renter['tarif_per_jam']); ?></td>
+                                <td><?php echo htmlspecialchars($renter['biaya_tambahan']); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
